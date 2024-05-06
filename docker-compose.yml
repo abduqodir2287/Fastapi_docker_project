@@ -1,0 +1,32 @@
+version: "2.24.6"
+
+services:
+  fastapi:
+    build: .
+    volumes:
+      - .:/itmed
+    command: uvicorn itmed:app --host 0.0.0.0 --port 8000
+    ports:
+      - "${APP_HOST_PORT}:8000"
+    depends_on:
+      - fastapi_db
+    restart: always
+    env_file:
+      - .env
+#    command: bash -c "while ! pg_isready -h postgres_db -p 5432; do sleep 1; done; uvicorn itmed:app --port 8000 --host 0.0.0.0"
+
+
+  fastapi_db:
+    image: postgres:latest
+    container_name: fast_db
+    environment:
+      POSTGRES_USER: abduqodir
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    ports:
+      - ${POSTGRES_HOST}:5432
+    volumes:
+      - fastapi_dbdata:/var/lib/postgresql/data/
+    restart: always
+volumes:
+  fastapi_dbdata: null
