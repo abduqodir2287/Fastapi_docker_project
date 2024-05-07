@@ -50,7 +50,7 @@ class Itmed_db:
                 age INTEGER,
                 org_id INTEGER REFERENCES organization (id),
                 org_name TEXT, 
-                doctor_id TEXT REFERENCES doctors (id)
+                doctor_id INT REFERENCES doctors (id)
             );"""
         self.cur.execute(sql)
         self.conn.commit()
@@ -84,7 +84,7 @@ class Itmed_db:
             org_name: str, doctor_id: int, table: str = "patient"
     ):
         sql = f"""INSERT INTO "{table}" ("firstname", "lastname", "age", "org_id", "org_name", "doctor_id")
-            VALUES (%s, %s, %s, %s, %s);"""
+            VALUES (%s, %s, %s, %s, %s, %s);"""
         data = (firstname, lastname, age, org_id, org_name, doctor_id)
         try:
             self.connect()
@@ -189,6 +189,7 @@ class Itmed_db:
         data = (firstname, lastname, age, org_id, org_name, doctor_id, id)
         self.cur.execute(sql, data)
         self.conn.commit()
+
 
     def update_item_org_doc(
             self, org_id: int, org_name: str,

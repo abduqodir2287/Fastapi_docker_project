@@ -228,7 +228,3 @@ class Itmed_db:
         self.cur.close()
         self.conn.close()
 
-# db = Itmed_db()
-# db.connect()
-# db.create_table_patient()
-# db.disconnect()

@@ -1,5 +1,5 @@
 from fastapi import APIRouter, HTTPException
-from test_db import Itmed_db
+from itmed_db import Itmed_db
 
 patient_router = APIRouter(prefix="/patient", tags=["Patients"])
 
